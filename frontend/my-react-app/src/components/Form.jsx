@@ -1,36 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import axios from "axios";
-export const Form = () => {
-  const [task, setTask] = useState("");
-  const [description, setDescription] = useState("");
-  const [isComplete, setIsComplete] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newtask = {
-      title: task,
-      description: description,
-      user:1,
-      is_complete: isComplete,
-    };
-    axios
-      .post("http://localhost:8000/todos/", newtask)
-      .then((response) => {
-        console.log(response.data);
-        alert("Task added successfully!");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Failed to add task. Please try again.");
-      });
-  };
+export const Form = ({ handleSubmit, clearForm, task, setTask, description, setDescription, isComplete, setIsComplete }) => {
 
-  const clearForm = () => {
-    setTask("");
-    setDescription("");
-    setIsComplete(false);
-  };
   return (
     <div>
       <div className="flex flex-col gap-4 pt-10 items-center justify-center  ">
