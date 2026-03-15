@@ -9,7 +9,7 @@ export const ViewTasks = () => {
   const [isComplete, setIsComplete] = useState(false);
 
 
-  
+
   const clearForm = () => {
     setTask("");
     setDescription("");
@@ -71,7 +71,7 @@ export const ViewTasks = () => {
   return (
     <div className=" ">
       <div>
-        <Form handleSubmit={handleSubmit} clearForm={clearForm}  task={task} setTask={setTask} setDescription={setDescription} isComplete={setIsComplete} description={description} isComplete={isComplete} />
+        <Form handleSubmit={handleSubmit} clearForm={clearForm}  task={task} setTask={setTask} setDescription={setDescription} isComplete={setIsComplete} description={description}  />
       </div>
       <div className="text-4xl text-pink-600 font-bold text-center py-10">
         Tasks
