@@ -4,16 +4,19 @@ import axios from "axios";
 import { Form } from "./Form";
 export const ViewTasks = () => {
   const [tasks, setTasks] = useState([]);
-  const [task, setTask] = useState("");
-  const [description, setDescription] = useState("");
-  const [isComplete, setIsComplete] = useState(false);
 
-
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    is_complete: false,
+  });
 
   const clearForm = () => {
-    setTask("");
-    setDescription("");
-    setIsComplete(false);
+    setFormData({
+      title: "",
+      description: "",
+      is_complete: false,
+    });
   };
 
   const fetchTasks = () => {
@@ -34,7 +37,10 @@ export const ViewTasks = () => {
   };
   const markAsCompleted = (taskId) => {
     axios
-      .patch(`http://localhost:8000/todos/${taskId}/`, { is_complete: true })
+      .patch(`http://localhost:8000/todos/${taskId}/`, {
+        ...formData,
+        is_complete: true,
+      })
       .then((response) => {
         console.log(response.data);
         deleteTask(taskId);
@@ -50,14 +56,9 @@ export const ViewTasks = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newtask = {
-      title: task,
-      description: description,
-      user: 1,
-      is_complete: isComplete,
-    };
+
     axios
-      .post("http://localhost:8000/todos/", newtask)
+      .post("http://localhost:8000/todos/", formData)
       .then((response) => {
         console.log(response.data);
         fetchTasks();
@@ -71,7 +72,12 @@ export const ViewTasks = () => {
   return (
     <div className=" ">
       <div>
-        <Form handleSubmit={handleSubmit} clearForm={clearForm}  task={task} setTask={setTask} setDescription={setDescription} isComplete={setIsComplete} description={description}  />
+        <Form
+          handleSubmit={handleSubmit}
+          clearForm={clearForm}
+          formData={formData}
+          setFormData={setFormData}
+        />
       </div>
       <div className="text-4xl text-pink-600 font-bold text-center py-10">
         Tasks

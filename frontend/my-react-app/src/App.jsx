@@ -1,15 +1,23 @@
-import { useState } from "react";
-import { Header } from "./components/Header";
-import { Form } from "./components/Form";
-import { ViewTasks } from "./components/ViewTasks";
+import { MainPage } from "./pages/MainPage";
+import { Loginpage } from "./pages/Loginpage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Layout } from "./layouts/Layout";
+
 function App() {
   return (
     <>
-    <div>
-      <Header />
-
-      <ViewTasks />
-    </div>
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Loginpage />} />
+              <Route path="register" element={<RegisterPage />} />
+              <Route path="todos" element={<MainPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
     </>
   );
 }

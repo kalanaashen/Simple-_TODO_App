@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Form = ({ handleSubmit, clearForm, task, setTask, description, setDescription, isComplete, setIsComplete }) => {
+export const Form = ({ handleSubmit, clearForm, formData, setFormData }) => {
 
   return (
     <div>
@@ -10,9 +10,10 @@ export const Form = ({ handleSubmit, clearForm, task, setTask, description, setD
           <input
             type="text"
             className="border-2 border-pink-300 rounded-xl w-2xl p-2.5 focus:outline-none focus:ring-2 focus:ring-pink-300"
-            value={task}
+            name="title"
+            value={formData.title}
             onChange={(e) => {
-              setTask(e.target.value);
+              setFormData({ ...formData, [e.target.name]: e.target.value });
             }}
           />
         </div>
@@ -23,9 +24,10 @@ export const Form = ({ handleSubmit, clearForm, task, setTask, description, setD
           <textarea
             cols={50}
             rows={10}
-            value={description}
+            value={formData.description}
+            name="description"
             onChange={(e) => {
-              setDescription(e.target.value);
+              setFormData({ ...formData, [e.target.name]: e.target.value });
             }}
             className=" border-2 border-pink-300 rounded-3xl p-2.5 focus:outline-none focus:ring-2 focus:ring-pink-300"
           />
@@ -36,10 +38,11 @@ export const Form = ({ handleSubmit, clearForm, task, setTask, description, setD
           </label>
           <input
             type="checkbox"
-            checked={isComplete}
+            checked={formData.is_complete}
             onChange={(e) => {
-              setIsComplete(e.target.checked);
+              setFormData({ ...formData, [e.target.name]: e.target.checked });
             }}
+            name="is_complete"
             className="border border-pink-300 rounded-2xl size-10 focus:outline-none focus:ring-2 focus:ring-pink-300"
           />
         </div>
