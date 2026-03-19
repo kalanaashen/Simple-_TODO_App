@@ -1,6 +1,15 @@
 from django.db import models
 from django.conf import settings
-# Create your models here.
+from django.contrib.auth.models import AbstractUser
+
+
+class CustomUser(AbstractUser):
+    
+    phonenumber=models.CharField(max_length=10,blank=False)
+
+    def __str__(self):
+        return self.username
+
 class TODO(models.Model):
     
     title=models.CharField(max_length=200,null=False,blank=False)
