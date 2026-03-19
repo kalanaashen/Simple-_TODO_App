@@ -2,9 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Form } from "./Form";
+import {
+  getTasks,
+  createTask,
+  deleteTaskApi,
+  completeTask,
+} from "../api/taskApi";
 export const ViewTasks = () => {
   const [tasks, setTasks] = useState([]);
-  
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -18,79 +24,39 @@ export const ViewTasks = () => {
       is_completed: false,
     });
   };
-
-  const fetchTasks = () => {
-    axios
-      .get("http://localhost:8000/todos/", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      })
-      .then((response) => {
-        setTasks(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-  const deleteTask = (taskId) => {
-    axios
-      .delete(`http://localhost:8000/todos/${taskId}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        fetchTasks();
-      });
-  };
-  const markAsCompleted = (taskId) => {
-    axios
-      .patch(
-        `http://localhost:8000/todos/${taskId}/`,
-        {
-          is_completed: true,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        },
-      )
-      .then((response) => {
-        console.log(response.data);
-
-        fetchTasks();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-  useEffect(() => {
+const fetchTasks = () => {
+  getTasks()
+    .then((res) => setTasks(res.data))
+    .catch(console.error);
+};
+  useEffect(()=>{
+    
     fetchTasks();
-  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  },[]);
+const deleteTask = (taskId) => {
+  deleteTaskApi(taskId)
+    .then(fetchTasks)
+    .catch(console.error);
+};
+const markAsCompleted = (taskId) => {
+  completeTask(taskId)
+    .then(fetchTasks)
+    .catch(console.error);
+};
 
-    axios
-      .post("http://localhost:8000/todos/", formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        fetchTasks();
-        alert("Task added successfully!");
-      })
-      .catch((error) => {
-        console.error("FULL ERROR:", error.response);
-        console.log("DATA:", error.response?.data);
-        alert(JSON.stringify(error.response?.data));
-      });
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  createTask(formData)
+    .then(() => {
+      fetchTasks();
+      alert("Task added successfully!");
+    })
+    .catch((error) => {
+      console.error(error.response?.data);
+    });
+};
   return (
     <div className=" ">
       <div>
