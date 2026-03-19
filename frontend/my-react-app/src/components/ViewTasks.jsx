@@ -79,24 +79,24 @@ export const ViewTasks = () => {
           setFormData={setFormData}
         />
       </div>
-      <div className="text-4xl text-pink-600 font-bold text-center py-10">
+      <div className="text-lg text-pink-600 font-bold text-center py-10">
         Tasks
       </div>
 
       <table className="border  border-pink-300 rounded-2xl w-2xl p-2.5 mx-auto ">
         <thead className="p-4  mx-auto bg-pink-100">
           <tr>
-            <th className="p-6">Title</th>
-            <th className="p-6">Description</th>
-            <th className="p-6">Status</th>
+            <th className="p-3">Title</th>
+            <th className="p3">Description</th>
+            <th className="p-3">Status</th>
           </tr>
         </thead>
         <tbody className="text-center ">
           {tasks.map((task, index) => (
             <tr key={index} className="hover:bg-pink-50 ">
-              <td className="p-6">{task.title}</td>
-              <td className="p-6">{task.description}</td>
-              <td className="p-6">
+              <td className="p-3">{task.title}</td>
+              <td className="p-3">{task.description}</td>
+              <td className="p-3">
                 <button
                   className={`bg-pink-500 hover:bg-pink-600  hover:scale-110 duration-300 rounded-2xl font-medium text-white py-2 px-4 rounded`}
                   onClick={() => markAsCompleted(task.id)}

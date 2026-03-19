@@ -8,7 +8,7 @@ export const MainPage = () => {
     <div>
 
 
-    <Form/>
+
     <ViewTasks/>
 
     </div>
