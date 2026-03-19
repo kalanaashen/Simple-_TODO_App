@@ -88,6 +88,16 @@ export const RegisterPage = () => {
               Register
             </button>
           </div>
+          <div className=" flex flex-row text-md pb-2  gap-x-2.5">
+            <h1 className="">Do You Have Account?</h1>
+            <a
+              onClick={() => {
+                navigate("/");
+              }}
+            className="hover:text-pink-600 cursor:pointer">
+              Switch to login
+            </a>
+          </div>
         </div>
       </div>
     </div>

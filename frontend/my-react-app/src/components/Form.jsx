@@ -38,11 +38,11 @@ export const Form = ({ handleSubmit, clearForm,formData,setFormData}) => {
           </label>
           <input
             type="checkbox"
-            checked={formData.is_complete}
+            checked={formData.is_completed}
             onChange={(e) => {
               setFormData({ ...formData, [e.target.name]: e.target.checked });
             }}
-            name="is_complete"
+            name="is_completed"
             className="border border-pink-300 rounded-2xl size-10 focus:outline-none focus:ring-2 focus:ring-pink-300"
           />
         </div>

@@ -6,6 +6,7 @@ class TODOSerializer(serializers.ModelSerializer):
     class Meta:
         model=TODO
         fields="__all__"
+        read_only_fields=['user']
         
         
         

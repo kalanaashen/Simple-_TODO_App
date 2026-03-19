@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import  axios  from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router";
 export const Loginpage = () => {
   const navigate = useNavigate();
@@ -13,6 +13,9 @@ export const Loginpage = () => {
       const res = await axios.post("http://127.0.0.1:8000/api/login", formData);
 
       localStorage.setItem("authToken", res.data.access);
+
+      console.log(localStorage.getItem("authToken")); 
+
       setFormData({ username: "", password: "" });
 
       navigate("/todos");
@@ -54,13 +57,19 @@ export const Loginpage = () => {
           </div>
 
           <div className="gap-3 py-10 ">
-            <button className="px-2 py-1 text-white font-semibold rounded-2xl bg-pink-500 min-w-xs hover:scale-105 duration-200" onClick={submitForm}>
+            <button
+              className="px-2 py-1 text-white font-semibold rounded-2xl bg-pink-500 min-w-xs hover:scale-105 duration-200"
+              onClick={submitForm}
+            >
               Login
             </button>
           </div>
           <div className="flex flex-row  gap-1.5">
             <h1>Dont have Account?</h1>
-            <a href="/register" className="text-pink-700 hover:text-blue-800">
+            <a
+              href="/register"
+              className="text-pink-700 hover:text-blue-800 cursor:pointer"
+            >
               Register Here!
             </a>
           </div>
