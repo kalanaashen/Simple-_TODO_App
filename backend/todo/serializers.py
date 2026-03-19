@@ -11,6 +11,12 @@ class TODOSerializer(serializers.ModelSerializer):
         
         
 class CustomUserSerializer(serializers.ModelSerializer):
+    
+    password = serializers.CharField(write_only=True)
+
     class Meta:
-        model=CustomUser
-        fields="__all__"
+        model = CustomUser
+        fields = ['id', 'username', 'email', 'phonenumber', 'password']
+
+    def create(self, validated_data):
+        return CustomUser.objects.create_user(**validated_data)
